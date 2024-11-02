@@ -6,18 +6,15 @@ import illustration from "../../assets/ilustration.png"
 export function AuthLayout() {
     return (
         <div className="flex w-full h-full">
-            <div className="w-1/2 h-full flex items-center justify-center">
+            <div className="w-full h-full flex items-center justify-center lg:w-1/2">
                 <div className="flex-col flex items-center gap-16 min-w-[440px] ">
                     <Logo className='text-gray-500 h-6' />
                 
-                    <div>
-                        <Outlet />
-                    </div>
+                    <Outlet />
                 </div>
             </div>
 
-            <div className="w-1/2 h-full flex justify-center items-center p-8 ">
-     
+            <div className="w-1/2 h-full justify-center items-center p-8 hidden lg:flex">
                 <div className="w-full min-h-[960px] max-w-[656px] relative">
                     <img 
                         src={illustration} 
