@@ -5,7 +5,7 @@ import { Button } from "../../components/Button";
 export function Login() {
     return (
         <div className="w-full">
-            <header className="flex flex-col items-center gap-4">
+            <header className="flex flex-col items-center gap-4 text-center">
                 <h1 className="text-2xl font-bold text-gray-900 tracking-[-0.5px]">Entre em sua conta</h1>
 
                 <p className="space-x-2">
