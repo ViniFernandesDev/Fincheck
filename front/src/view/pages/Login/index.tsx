@@ -28,14 +28,15 @@ export function Login() {
             >
                 <Input 
                     placeholder="E-mail" 
-                    type="email"                 
+                    type="email"              
+                    error={errors.email?.message}   
                     {...register('email')}
-                    error='Errrou'
                 />
 
                 <Input 
                     placeholder="Senha" 
                     type="password" 
+                    error={errors.password?.message}
                     {...register('password')}
                 />
 
