@@ -1,10 +1,16 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+
 import { EyeIcon } from "../../../components/icons/EyeIcon";
 import { AccountCard } from "./AccountCard";
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+// @ts-ignore 
+import 'swiper/css';
+
+import { AccountsSliderNavigation } from "./AccountsSliderNavigation";
+
 export function Accounts() {
     return (
-        <div className="flex flex-col bg-teal-900 rounded-2xl w-full h-full px-4 py-6 md:p-10 ">
+        <div className="flex flex-col bg-teal-900 rounded-2xl w-full h-full px-4 py-6 md:p-10 justify-between">
             <div className="flex flex-col">
                 <span className="tracking-[-0.5px] text-white">Saldo Total</span>
 
@@ -16,28 +22,33 @@ export function Accounts() {
                     </button>
                 </div>
             </div>
-
-            <div className="flex-1 flex justify-end flex-col">
-                <div className="flex justify-between items-center">
-                    <strong className="text-white tracking-[-0.5px] text-lg">
-                        Minhas contas
-                    </strong>
-
-                    <div>
-                        <button disabled className="py-3 pl-2.5 pr-3 rounded-full enabled:hover:bg-black/10 transition-all disabled:opacity-40">
-                            <ChevronLeftIcon className="text-white w-6 h-6" />
-                        </button>
-                        <button className="py-3 pl-2.5 pr-3 rounded-full enabled:hover:bg-black/10 transition-all disabled:opacity-40">
-                            <ChevronRightIcon className="text-white w-6 h-6" />
-                        </button>
+            
+            <div>
+                <Swiper
+                    spaceBetween={16}
+                    slidesPerView={2.1}
+                >
+                    <div className="flex justify-between items-center pb-2" slot='container-start'>
+                        <strong className="text-white tracking-[-0.5px] text-lg">
+                            Minhas contas
+                        </strong>
+                        <AccountsSliderNavigation />
                     </div>
-                </div>
+        
+                    <SwiperSlide>
+                        <AccountCard color='#7950F2' name="Nubank" balance={1000.23} type="CASH" />
+                    </SwiperSlide>
 
-                <div className="mt-4 grid">
-                    <AccountCard color='#7950F2' name="Nubank" balance={1000.23} type="CASH" />
+                    <SwiperSlide>
+                        <AccountCard color='#0f0' name="XP" balance={256.23} type="INVESTMENT" />
+                    </SwiperSlide>
 
-                    <AccountCard color='#0f0' name="XP" balance={256.23} type="INVESTMENT" />
-                </div>
+                    <SwiperSlide>
+                        <AccountCard color='#0f0' name="XP" balance={256.23} type="INVESTMENT" />
+                    </SwiperSlide>
+                </Swiper>
+                
+             
             </div>
         </div>
     )
