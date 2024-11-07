@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // @ts-ignore 
 import 'swiper/css';
 
-import { AccountsSliderNavigation } from "./AccountsSliderNavigation";
+import { SliderNavigation } from "./SliderNavigation";
 import { useAccountsController } from "./useAccountsController";
 
 export function Accounts() {
@@ -41,7 +41,7 @@ export function Accounts() {
                         <strong className="text-white tracking-[-0.5px] text-lg">
                             Minhas contas
                         </strong>
-                        <AccountsSliderNavigation isBeginning={sliderState.isBeginning} isEnd={sliderState.isEnd} />
+                        <SliderNavigation isBeginning={sliderState.isBeginning} isEnd={sliderState.isEnd} />
                     </div>
         
                     <SwiperSlide>
