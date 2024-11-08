@@ -1,15 +1,14 @@
-
+import { PlusIcon } from "@radix-ui/react-icons";
 import { EyeIcon } from "../../../../components/icons/EyeIcon";
 import { AccountCard } from "./AccountCard";
+import { SliderNavigation } from "./SliderNavigation";
+import { useAccountsController } from "./useAccountsController";
 
+import { formatCurrency } from "../../../../../app/utils/formatCurrency";
+import { cn } from "../../../../../app/utils/cn";
 import { Swiper, SwiperSlide } from 'swiper/react';
 // @ts-ignore 
 import 'swiper/css';
-
-import { SliderNavigation } from "./SliderNavigation";
-import { useAccountsController } from "./useAccountsController";
-import { formatCurrency } from "../../../../../app/utils/formatCurrency";
-import { cn } from "../../../../../app/utils/cn";
 
 export function Accounts() {
     const { 
@@ -19,6 +18,7 @@ export function Accounts() {
         areValuesVisible,
         toogleValueVisibility,
         isLoading,
+        accounts,
     } = useAccountsController();
 
     return (
@@ -48,7 +48,28 @@ export function Accounts() {
                     </div>
                 </div>
                 
-                <div>
+                {accounts.length === 0 && (
+                    <div>
+                        <div className="mb-4">
+                            <strong className="text-white tracking-[-0.5px] text-lg font-medium">
+                                Minhas contas
+                            </strong>
+                        </div>
+
+                        <button className="flex items-center justify-center flex-col gap-4 h-52 w-full rounded-2xl border-2 border-dashed border-teal-600 text-white">
+                            <span className="h-11 w-11 border border-white border-dashed rounded-full flex items-center justify-center">
+                                <PlusIcon className="mt-[2px] h-5 w-5" />
+                            </span>
+
+                            <span className="font-medium tracking-[-0.5px] block w-32">
+                                <span>Cadastre uma nova conta</span>
+                            </span>
+                        </button>
+                    </div>
+                )}
+
+                {accounts.length > 0 && (
+                    <div>
                     <Swiper
                         spaceBetween={16}
                         slidesPerView={windowWidth >= 500 ? 2.1 :1.1 }
@@ -60,7 +81,7 @@ export function Accounts() {
                         }}
                     >
                         <div className="flex justify-between items-center pb-2" slot='container-start'>
-                            <strong className="text-white tracking-[-0.5px] text-lg">
+                            <strong className="text-white tracking-[-0.5px] text-lg font-medium">
                                 Minhas contas
                             </strong>
                             <SliderNavigation isBeginning={sliderState.isBeginning} isEnd={sliderState.isEnd} />
@@ -78,9 +99,8 @@ export function Accounts() {
                             <AccountCard color='#0f0' name="XP" balance={256.23} type="INVESTMENT" />
                         </SwiperSlide>
                     </Swiper>
-                    
-                
                 </div>
+                )}              
             </>
             )}
         </div>
