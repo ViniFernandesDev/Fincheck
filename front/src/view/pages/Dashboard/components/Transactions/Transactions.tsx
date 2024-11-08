@@ -2,6 +2,7 @@ import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
 import { TransactionsIcon } from "../../../../components/icons/TransactionsIcon";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
+import emptyTransactions from "../../../../../assets/emptyTransactions.svg";
 
 import { SliderOption } from "./SliderOption";
 import { SliderNavigation } from "./SliderNavigation";
@@ -16,18 +17,22 @@ import { useTransactionsController } from "./useTransactionsController";
 export function Transactions() {
     const { 
         areValuesVisible,
+        isInitialLoading,
         isLoading,
+        transactions,
      } = useTransactionsController();
+
+     const hasTransactions = transactions.length > 0;
 
     return (
         <div className="flex flex-col bg-gray-100 rounded-2xl w-full h-full px-4 py-6 md:p-10">
-            {isLoading && (
+            {isInitialLoading && (
                 <div className="h-full w-full flex items-center justify-center">
                     LOADING...
                 </div>
             )}
 
-            {!isLoading && (
+            {!isInitialLoading && (
             <>
                 <header>
                     <div className="flex justify-between w-full">
@@ -66,39 +71,55 @@ export function Transactions() {
                 </header>
 
                 <section className="mt-4 space-y-2 flex-1 overflow-y-auto">
-                    <div className="bg-white flex justify-between items-center p-4 gap-4 rounded-lg">
-                        <div className="flex gap-3 flex-1 items-center">
-                            <CategoryIcon type='expense' />
+                    {isLoading && (
+                        <div className="flex h-full justify-center items-center gap-6 flex-col">
+                            Carregando
+                        </div>
+                    )}    
 
-                            <div>
-                                <strong className="font-bold tracking-[-0.5px] block">Almoço</strong>
-                                <span className="text-sm text-gray-600 block">12/12/2024</span>
+                    {(!hasTransactions && !isLoading) && (
+                        <div className="flex h-full justify-center items-center gap-6 flex-col">
+                            <img src={emptyTransactions} />
+                            <span className="text-gray-700">Não encontramos nenhuma transação!</span>
+                        </div>
+                    )}
+
+                    {hasTransactions && !isLoading && (
+                    <>
+                        <div className="bg-white flex justify-between items-center p-4 gap-4 rounded-lg">
+                            <div className="flex gap-3 flex-1 items-center">
+                                <CategoryIcon type='expense' />
+
+                                <div>
+                                    <strong className="font-bold tracking-[-0.5px] block">Almoço</strong>
+                                    <span className="text-sm text-gray-600 block">12/12/2024</span>
+                                </div>
                             </div>
+
+                            <span className={cn(
+                                "text-red-800 tracking-[-0.5.px] font-medium",
+                                !areValuesVisible && 'blur-sm'
+                            )}> - {formatCurrency(100)}</span>
                         </div>
 
-                        <span className={cn(
-                            "text-red-800 tracking-[-0.5.px] font-medium",
-                            !areValuesVisible && 'blur-sm'
-                        )}> - {formatCurrency(100)}</span>
-                    </div>
+                        <div className="bg-white flex justify-between items-center p-4 gap-4 rounded-lg">
+                            <div className="flex gap-3 flex-1 items-center">
+                                <CategoryIcon type='income' />
 
-                    <div className="bg-white flex justify-between items-center p-4 gap-4 rounded-lg">
-                        <div className="flex gap-3 flex-1 items-center">
-                            <CategoryIcon type='income' />
-
-                            <div>
-                                <strong className="font-bold tracking-[-0.5px] block">Almoço</strong>
-                                <span className="text-sm text-gray-600 block">12/12/2024</span>
+                                <div>
+                                    <strong className="font-bold tracking-[-0.5px] block">Almoço</strong>
+                                    <span className="text-sm text-gray-600 block">12/12/2024</span>
+                                </div>
                             </div>
-                        </div>
 
-                        <span className={cn(
-                            "text-green-800 tracking-[-0.5.px] font-medium",
-                            !areValuesVisible && 'blur-sm'
-                        )}> - {formatCurrency(100)}</span>
-                    </div>
-
-                    
+                            <span className={cn(
+                                "text-green-800 tracking-[-0.5.px] font-medium",
+                                !areValuesVisible && 'blur-sm'
+                            )}> - {formatCurrency(100)}</span>
+                        </div>     
+                    </>
+                    )}
+                       
                 </section>
             </>
             )}
