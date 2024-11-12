@@ -1,6 +1,4 @@
-import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
-import { TransactionsIcon } from "../../../../components/icons/TransactionsIcon";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
 import emptyTransactions from "../../../../../assets/emptyTransactions.svg";
 
@@ -13,6 +11,7 @@ import { formatCurrency } from "../../../../../app/utils/formatCurrency";
 import { cn } from "../../../../../app/utils/cn";
 
 import { useTransactionsController } from "./useTransactionsController";
+import { TransactionTypeDropDown } from "./TransactionTypeDropDown";
 
 export function Transactions() {
     const { 
@@ -36,11 +35,7 @@ export function Transactions() {
             <>
                 <header>
                     <div className="flex justify-between w-full">
-                        <button className="flex items-center gap-2 transition-all">
-                            <TransactionsIcon />
-                            <span className="text-sm text-gray-800 tracking-[-0.5px] font-medium">Transações</span>
-                            <ChevronDownIcon className="text-gray-900" />
-                        </button>
+                        <TransactionTypeDropDown />
                     
                         <button>
                             <FilterIcon/>
