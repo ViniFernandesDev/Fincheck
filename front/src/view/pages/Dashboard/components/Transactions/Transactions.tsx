@@ -1,7 +1,8 @@
 import { CategoryIcon } from "../../../../components/icons/categories/CategoryIcon";
 import { FilterIcon } from "../../../../components/icons/FilterIcon";
 import emptyTransactions from "../../../../../assets/emptyTransactions.svg";
-
+import { FiltersModal } from "./FiltersModal";
+import { TransactionTypeDropDown } from "./TransactionTypeDropDown";
 import { SliderOption } from "./SliderOption";
 import { SliderNavigation } from "./SliderNavigation";
 
@@ -11,7 +12,6 @@ import { formatCurrency } from "../../../../../app/utils/formatCurrency";
 import { cn } from "../../../../../app/utils/cn";
 
 import { useTransactionsController } from "./useTransactionsController";
-import { TransactionTypeDropDown } from "./TransactionTypeDropDown";
 
 export function Transactions() {
     const { 
@@ -19,6 +19,9 @@ export function Transactions() {
         isInitialLoading,
         isLoading,
         transactions,
+        handleCloseFiltersModal,
+        handleOpenFiltersModal,
+        isFiltersModalOpen,
      } = useTransactionsController();
 
      const hasTransactions = transactions.length > 0;
@@ -33,12 +36,14 @@ export function Transactions() {
 
             {!isInitialLoading && (
             <>
+                <FiltersModal open={isFiltersModalOpen} onClose={handleCloseFiltersModal} />
+
                 <header>
                     <div className="flex justify-between w-full">
                         <TransactionTypeDropDown />
                     
-                        <button>
-                            <FilterIcon/>
+                        <button onClick={handleOpenFiltersModal} className="h-12 w-12 pt-1 flex items-center justify-center rounded-full hover:bg-green-50 transition-colors">
+                            <FilterIcon />
                         </button>
                     </div>
 
